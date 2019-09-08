@@ -1,0 +1,21 @@
+{
+  "name": "ai-bot",
+  "version": "1.0.0",
+  "description": "Ecommerce aibot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bot"
+  ],
+  "author": "Abhishek.k",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "engines": {
+    "node": "10.13.0",
+    "npm": "6.4.1"
+  }
+}
