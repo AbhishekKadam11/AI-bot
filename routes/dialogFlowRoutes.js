@@ -23,16 +23,6 @@ module.exports = app => {
             },
         };
         // Send request and log result
-        // const responses = await sessionClient.detectIntent(request);
-        // console.log('Detected intent');
-        // const result = responses[0].queryResult;
-        // console.log(`  Query: ${result.queryText}`);
-        // console.log(`  Response: ${result.fulfillmentText}`);
-        // if (result.intent) {
-        //     console.log(`  Intent: ${result.intent.displayName}`);
-        // } else {
-        //     console.log(`  No intent matched.`);
-        // }
         let responses = await  sessionClient
             .detectIntent(request);
         res.send(responses[0].queryResult);
