@@ -7,7 +7,7 @@ const credentails = {
     client_email: config.googleClientEmail,
     private_key: config.googlePrivateKey
 };
-const sessionClient = new dialogflow.SessionsClient({projectId, credentails});
+const sessionClient = new dialogflow.SessionsClient({projectID: projectID, credentails: credentails});
 const sessionPath = sessionClient.sessionPath(config.googleProjectID, config.dialogFlowSessionID);
 
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
             queryInput: {
                 text: {
                     // The query to send to the dialogflow agent
-                     text: text,
+                    text: text,
                     // The language used by the client (en-US)
                     languageCode: config.dialogFlowSessionLanguageCode,
                 },
