@@ -7,7 +7,7 @@ const credentails = {
     client_email: config.googleClientEmail,
     private_key: config.googlePrivateKey
 };
-const sessionClient = new dialogflow.SessionsClient({projectID: projectID, credentails: credentails});
+const sessionClient = new dialogflow.SessionsClient({projectID, credentails});
 const sessionPath = sessionClient.sessionPath(config.googleProjectID, config.dialogFlowSessionID);
 
 module.exports = {
