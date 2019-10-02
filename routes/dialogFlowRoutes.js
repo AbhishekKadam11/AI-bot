@@ -9,6 +9,7 @@ module.exports = app => {
     app.post('/api/test', async (req, res) => {
         try{
             let responses = await chatbot.textQuery(req.body.text, req.body.parameters);
+            console.log(JSON.stringify(responses));
             res.send(responses[0].queryResult);
         }catch (e) {
             console.log(e)
