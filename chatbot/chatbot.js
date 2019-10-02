@@ -9,7 +9,9 @@ const credentails = {
 };
 const sessionClient = new dialogflow.SessionsClient({projectID, credentails});
 const sessionPath = sessionClient.sessionPath(config.googleProjectID, config.dialogFlowSessionID);
-console.log("test "+ sessionClient);
+const app = dialogflow({
+    debug: true
+});
 module.exports = {
     textQuery: async function(text, parameters = {}) {
         let self = module.exports;
@@ -30,9 +32,14 @@ module.exports = {
                 }
             }
         };
+        app.catch((conv, error) => {
+            console.error(error);
+            conv.ask('I encountered a glitch. Can you say that again?');
+        });
         // Send request and log result
         let responses = await sessionClient
-            .detectIntent(request);
+            .detectIntent(request)
+            .catch(errorCallback);
         responses = await self.handleAction(responses);
        // res.send(responses[0].queryResult);
         return responses;
