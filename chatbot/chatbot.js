@@ -9,12 +9,12 @@ const credentails = {
 };
 const sessionClient = new dialogflow.SessionsClient({projectID, credentails});
 const sessionPath = sessionClient.sessionPath(config.googleProjectID, config.dialogFlowSessionID);
-console.log("test "+ JSON.stringify(sessionClient));
+
 module.exports = {
     textQuery: async function(text, parameters = {}) {
         let self = module.exports;
         // The text query request.
-        try{
+        // try{
             const request = {
                 session: sessionPath,
                 queryInput: {
@@ -38,9 +38,9 @@ module.exports = {
             responses = await self.handleAction(responses);
             // res.send(responses[0].queryResult);
             return responses;
-        } catch (e) {
-            console.log(JSON.stringify(e));
-        }
+        // } catch (e) {
+        //     console.log(JSON.stringify(e));
+        // }
 
     },
 
