@@ -2,9 +2,9 @@ const chatbot = require('../chatbot/chatbot');
 
 
 module.exports = app => {
-    app.get('/', (req, res) => {
-        res.send('test')
-    });
+    // app.get('/', (req, res) => {
+    //     res.send('test')
+    // });
 
     app.post('/api/test', async (req, res) => {
         try{
