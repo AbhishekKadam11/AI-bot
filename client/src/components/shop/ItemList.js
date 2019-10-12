@@ -8,4 +8,4 @@ const ItemList = () => {
     }
 };
 
-export default Shop;
+export default ItemList;
