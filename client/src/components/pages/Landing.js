@@ -2,7 +2,7 @@ import React from "react";
 
 const Landing = () => {
     return (
-        <div><h1>test react page </h1>
+        <div style={{ textAlign: 'center'}}><h1>test react page </h1>
             chatbot
         </div>
         )
