@@ -1,5 +1,6 @@
 "use strict";
 const dialogflow = require('dialogflow');
+const structjson = require('./structjson');
 const config = require('../config/keys');
 
 const projectID = config.googleProjectID;
@@ -33,17 +34,30 @@ module.exports = {
             };
             // Send request and log result
             let responses = await sessionClient
-                .detectIntent(request)
-            ;
+                .detectIntent(request);
             responses = await self.handleAction(responses);
-            // res.send(responses[0].queryResult);
             return responses;
-        // } catch (e) {
-        //     console.log(JSON.stringify(e));
-        // }
-
     },
-
+    textEvent: async function(event, parameters = {}) {
+        let self = module.exports;
+        const request = {
+            session: sessionPath,
+            queryInput: {
+                event: {
+                    // The query to send to the dialogflow agent
+                    name: event,
+                    parameters: structjson.jsonToStructProto(parameters),
+                    // The language used by the client (en-US)
+                    languageCode: config.dialogFlowSessionLanguageCode,
+                },
+            },
+        };
+        // Send request and log result
+        let responses = await sessionClient
+            .detectIntent(request);
+        responses = await self.handleAction(responses);
+        return responses;
+    },
     handleAction: function(responses) {
         return responses;
     }
