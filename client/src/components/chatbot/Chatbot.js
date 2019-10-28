@@ -24,7 +24,7 @@ class Chatbot extends Component {
         const res = await axios.post('/api/textQuery', {text})
         for(let msg of res.data.fulfillmentMessages) {
              says = {
-                speaks: 'bot',
+                speaks: 'me',
                 msg: msg
             };
             this.setState({messages: [...this.state.messages, says]});
@@ -37,7 +37,7 @@ class Chatbot extends Component {
         console.log(res);
         for(let msg of res.data.fulfillmentMessages) {
           let says = {
-                speaks: 'me',
+                speaks: 'AI-Bot',
                 msg: msg
             };
             this.setState({messages: [...this.state.messages, says]});
