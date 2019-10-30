@@ -8,7 +8,7 @@ module.exports = app => {
 
     app.post('/api/textQuery', async (req, res) => {
         try {
-            let responses = await chatbot.textQuery(req.body.text, req.body.parameters);
+            let responses = await chatbot.textQuery(req.body.text, req.body.userId, req.body.parameters);
             //  console.log(JSON.stringify(responses));
             res.send(responses[0].queryResult);
         } catch (e) {
@@ -17,7 +17,7 @@ module.exports = app => {
     });
 
     app.post('/api/textEvent', async (req, res) => {
-            let responses = await chatbot.textEvent(req.body.event, req.body.parameters);
+            let responses = await chatbot.textEvent(req.body.event, req.body.userId, req.body.parameters);
             //  console.log(JSON.stringify(responses));
       //  console.log(responses);
             res.send(responses[0].queryResult);
