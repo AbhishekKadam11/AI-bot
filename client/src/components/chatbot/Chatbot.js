@@ -32,6 +32,7 @@ class Chatbot extends Component {
         };
         this.setState({messages: [...this.state.messages, says]});
         const res = await axios.post('/api/textQuery', {text: text, userId: cookies.get('userId')});
+       // console.log(res);
         for(let msg of res.data.fulfillmentMessages) {
              says = {
                 speaks: 'AI-Bot',
@@ -63,14 +64,16 @@ class Chatbot extends Component {
     }
 
     renderCards(cards) {
+        //console.log(cards);
         return cards.map((card, i) => <Card key={i} payload={card.structValue} />)
     }
 
     renderOneMessage(message, i) {
+        //console.log(message.msg);
         if(message.msg && message.msg.text && message.msg.text.text) {
             return <Message key={i} speaks={message.speaks} text={message.msg.text.text} />;
         } else if (message.msg && message.msg.payload && message.msg.payload.fields &&
-          message.msg.payload.fields.card) {
+          message.msg.payload.fields.cards) {
             return <div key={i} >
                 <div className="card-panel grey lighten-5 z-depth-1">
                     <div style={{overflow: 'hidden'}}>
@@ -78,9 +81,10 @@ class Chatbot extends Component {
                             <a className="btn-floating btn-large waves-effect waves-light red">
                                 {message.speaks} </a>
                         </div>
+                        {message.msg.payload.fields.cards.listValue.length * 270}
                         <div style={{overflow: 'auto', overflowY: 'scroll'}}>
                             <div style={{height: 300, width: message.msg.payload.fields.cards.listValue.length * 270 }}>
-                                {this.renderCards(message.msg.payload.fields.cards.listValue)}
+                                {this.renderCards(message.msg.payload.fields.cards.listValue.values)}
                             </div>
                         </div>
                     </div>
@@ -108,14 +112,22 @@ class Chatbot extends Component {
 
     render() {
         return (
-            <div style={{height: 400, width: 400, float: 'right'}}>
-                <div id='chatbot' style={{height: '100%', width: '100%', overflow: 'auto'}}>
-                    <h2>chatbot</h2>
+            <div style={{height: 500, width: 400, position: 'absolute', bottom: 0, right: 0, border: '1px solid lightgrey'}}>
+                <nav>
+                    <div className="nav-wrapper">
+                        <a className="brand-logo">Chatbot</a>
+                    </div>
+                </nav>
+                <div id='chatbot' style={{height: 388, width: '100%', overflow: 'auto'}}>
                     {this.renderMessages(this.state.messages)}
                     <div ref={(el) => {this.messagesEnd = el;}}
                         style={{float: "left", clear: "both"}}>
                     </div>
-                    <input type="text" onKeyPress={this.handleInputKeyPress}/>
+                </div>
+                <div className="col s12">
+                    <input style={{margin: 0, paddingLift: '1%', paddingRight: '1%', width: '90%'}}
+                           placeholder="Type a message"
+                           type="text" onKeyPress={this.handleInputKeyPress}/>
                 </div>
             </div>
         )
