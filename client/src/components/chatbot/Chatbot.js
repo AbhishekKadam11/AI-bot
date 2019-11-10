@@ -74,16 +74,17 @@ class Chatbot extends Component {
             return <Message key={i} speaks={message.speaks} text={message.msg.text.text} />;
         } else if (message.msg && message.msg.payload && message.msg.payload.fields &&
           message.msg.payload.fields.cards) {
-            return <div key={i} >
+            console.log(message.msg.payload.fields.cards.listValue.values.length);
+            return <div key={i}>
                 <div className="card-panel grey lighten-5 z-depth-1">
                     <div style={{overflow: 'hidden'}}>
                         <div className="col s2">
                             <a className="btn-floating btn-large waves-effect waves-light red">
                                 {message.speaks} </a>
                         </div>
-                        {message.msg.payload.fields.cards.listValue.length * 270}
-                        <div style={{overflow: 'auto', overflowY: 'scroll'}}>
-                            <div style={{height: 300, width: message.msg.payload.fields.cards.listValue.length * 270 }}>
+
+                        <div style={{overflow: 'auto', overflowY: 'inherit'}}>
+                            <div style={{height: 300, width: message.msg.payload.fields.cards.listValue.values.length * 270 }}>
                                 {this.renderCards(message.msg.payload.fields.cards.listValue.values)}
                             </div>
                         </div>
@@ -125,7 +126,7 @@ class Chatbot extends Component {
                     </div>
                 </div>
                 <div className="col s12">
-                    <input style={{margin: 0, paddingLift: '1%', paddingRight: '1%', width: '90%'}}
+                    <input style={{margin: 0, paddingLeft: '1%', paddingRight: '1%', width: '98%'}}
                            placeholder="Type a message"
                            type="text" onKeyPress={this.handleInputKeyPress}/>
                 </div>
