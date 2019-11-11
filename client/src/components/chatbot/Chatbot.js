@@ -83,7 +83,7 @@ class Chatbot extends Component {
                                 {message.speaks} </a>
                         </div>
 
-                        <div style={{overflow: 'auto', overflowY: 'inherit'}}>
+                        <div style={{overflow: 'auto', overflowY: 'auto'}}>
                             <div style={{height: 300, width: message.msg.payload.fields.cards.listValue.values.length * 270 }}>
                                 {this.renderCards(message.msg.payload.fields.cards.listValue.values)}
                             </div>
