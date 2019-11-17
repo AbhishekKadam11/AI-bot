@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie';
 import { v4 as uuid } from 'uuid';
 import Message from './Message';
 import Card from "./Card";
+import QuickReplies from './QuickReplies';
 
 const cookies = new Cookies();
 
@@ -12,6 +13,7 @@ class Chatbot extends Component {
     talkInput;
     constructor(props){
         super(props);
+        this.handleQuickRepliePayload = this.handleQuickRepliePayload.bind(this);
         this.handleInputKeyPress = this.handleInputKeyPress.bind(this);
         this.state= {
             messages: []
@@ -63,6 +65,10 @@ class Chatbot extends Component {
        // this.talkInput.focus();
     }
 
+    handleQuickRepliePayload(payload, text) {
+        this.textQuery(text);
+    }
+
     renderCards(cards) {
         //console.log(cards);
         return cards.map((card, i) => <Card key={i} payload={card.structValue} />)
@@ -74,7 +80,6 @@ class Chatbot extends Component {
             return <Message key={i} speaks={message.speaks} text={message.msg.text.text} />;
         } else if (message.msg && message.msg.payload && message.msg.payload.fields &&
           message.msg.payload.fields.cards) {
-            console.log(message.msg.payload.fields.cards.listValue.values.length);
             return <div key={i}>
                 <div className="card-panel grey lighten-5 z-depth-1">
                     <div style={{overflow: 'hidden'}}>
@@ -91,6 +96,19 @@ class Chatbot extends Component {
                     </div>
                 </div>
             </div>
+        } else if (
+            message.msg &&
+            message.msg.payload &&
+            message.msg.payload.fields &&
+            message.msg.payload.fields.quick_replies
+        ) {
+            return <QuickReplies
+            text ={message.msg.payload.fields.text ? message.msg.payload.fields.text : null}
+            key={i}
+            replyClick={this.handleQuickRepliePayload}
+            speaks={message.speaks}
+            payload={message.msg.payload.fields.quick_replies.listValue.values}
+            />
         }
     }
 
