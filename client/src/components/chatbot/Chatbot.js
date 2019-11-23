@@ -75,7 +75,7 @@ class Chatbot extends Component {
     }
 
     renderOneMessage(message, i) {
-        //console.log(message.msg);
+
         if(message.msg && message.msg.text && message.msg.text.text) {
             return <Message key={i} speaks={message.speaks} text={message.msg.text.text} />;
         } else if (message.msg && message.msg.payload && message.msg.payload.fields &&
@@ -100,14 +100,14 @@ class Chatbot extends Component {
             message.msg &&
             message.msg.payload &&
             message.msg.payload.fields &&
-            message.msg.payload.fields.quick_replies
+            message.msg.payload.fields.text
         ) {
             return <QuickReplies
             text ={message.msg.payload.fields.text ? message.msg.payload.fields.text : null}
             key={i}
             replyClick={this.handleQuickRepliePayload}
             speaks={message.speaks}
-            payload={message.msg.payload.fields.quick_replies.listValue.values}
+            payload={message.msg.payload.fields.text.stringValues}
             />
         }
     }

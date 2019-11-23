@@ -1,7 +1,7 @@
-import React, { Compenent } from 'react';
+import React, { Component } from 'react';
 import QuickReply from "./QuickReply";
 
-class QuickReplies extends Compenent {
+class QuickReplies extends Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
@@ -12,6 +12,7 @@ class QuickReplies extends Compenent {
     }
 
     renderQuickReply(reply, i) {
+        console.log(reply);
         return <QuickReply key={i} click={this.handleClick} reply = {reply} />;
     }
 
