@@ -100,14 +100,14 @@ class Chatbot extends Component {
             message.msg &&
             message.msg.payload &&
             message.msg.payload.fields &&
-            message.msg.payload.fields.text
+            message.msg.payload.fields.quick_replies
         ) {
             return <QuickReplies
             text ={message.msg.payload.fields.text ? message.msg.payload.fields.text : null}
             key={i}
             replyClick={this.handleQuickRepliePayload}
             speaks={message.speaks}
-            payload={message.msg.payload.fields.text.stringValues}
+            payload={message.msg.payload.fields.quick_replies.listValue.values}
             />
         }
     }
