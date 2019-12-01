@@ -66,7 +66,15 @@ class Chatbot extends Component {
     }
 
     handleQuickRepliePayload(payload, text) {
-        this.textQuery(text);
+        switch (payload) {
+            case 'see_new' :
+                this.eventQuery('SEE_NEW');
+                break;
+            default:
+                this.textQuery(text);
+                break;
+        }
+
     }
 
     renderCards(cards) {
