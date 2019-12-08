@@ -13,10 +13,13 @@ class Chatbot extends Component {
     talkInput;
     constructor(props){
         super(props);
+        this.hide = this.hide.bind(this);
+        this.show = this.show.bind(this);
         this.handleQuickRepliePayload = this.handleQuickRepliePayload.bind(this);
         this.handleInputKeyPress = this.handleInputKeyPress.bind(this);
         this.state= {
-            messages: []
+            messages: [],
+            showBot: true
         };
         if(cookies.get('userId') === undefined) {
             cookies.set('userId', uuid(), {path:'/'});
@@ -61,8 +64,19 @@ class Chatbot extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.messagesEnd.scrollIntoView({_behaviour: "smooth"})
-       // this.talkInput.focus();
+        this.messagesEnd.scrollIntoView({_behaviour: "smooth"});
+        if (this.talkInput) {
+            this.talkInput.focus();
+        }
+
+    }
+
+    show() {
+        this.setState({showBot: true});
+    }
+
+    hide() {
+        this.setState({showBot: false});
     }
 
     handleQuickRepliePayload(payload, text) {
@@ -138,26 +152,53 @@ class Chatbot extends Component {
     }
 
     render() {
-        return (
-            <div style={{height: 500, width: 400, position: 'absolute', bottom: 0, right: 0, border: '1px solid lightgrey'}}>
-                <nav>
-                    <div className="nav-wrapper">
-                        <a className="brand-logo">Chatbot</a>
+        if (this.state.showBot) {
+            return (
+                <div style={{height: 500, width: 400, position: 'absolute', bottom: 0, right: 0, border: '1px solid lightgrey'}}>
+                    <nav>
+                        <div className="nav-wrapper">
+                            <a className="brand-logo">Chatbot</a>
+                            <ul id="nav-mobile" className="right hide-on-med-and-down">
+                                <li>
+                                    <a onClick={this.hide}> Close</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div id='chatbot' style={{height: 388, width: '100%', overflow: 'auto'}}>
+                        {this.renderMessages(this.state.messages)}
+                        <div ref={(el) => {this.messagesEnd = el;}}
+                             style={{float: "left", clear: "both"}}>
+                        </div>
                     </div>
-                </nav>
-                <div id='chatbot' style={{height: 388, width: '100%', overflow: 'auto'}}>
-                    {this.renderMessages(this.state.messages)}
+                    <div className="col s12">
+                        <input style={{margin: 0, paddingLeft: '1%', paddingRight: '1%', width: '98%'}}
+                               placeholder="Type a message"
+                               type="text" onKeyPress={this.handleInputKeyPress}/>
+                    </div>
+                </div>
+            )
+        } else {
+            return (
+                <div style={{height: 40, width: 400, position: 'absolute', bottom: 0, right: 0, border: '1px solid lightgrey'}}>
+                    <nav>
+                        <div className="nav-wrapper">
+                            <a className="brand-logo">Chatbot</a>
+                            <ul id="nav-mobile" className="right hide-on-med-and-down">
+                                <li>
+                                    <a onClick={this.show}> Show</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
                     <div ref={(el) => {this.messagesEnd = el;}}
-                        style={{float: "left", clear: "both"}}>
+                         style={{float: "left", clear: "both"}}>
                     </div>
+
                 </div>
-                <div className="col s12">
-                    <input style={{margin: 0, paddingLeft: '1%', paddingRight: '1%', width: '98%'}}
-                           placeholder="Type a message"
-                           type="text" onKeyPress={this.handleInputKeyPress}/>
-                </div>
-            </div>
-        )
+            )
+        }
+
     }
 }
 
