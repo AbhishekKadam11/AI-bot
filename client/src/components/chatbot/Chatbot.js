@@ -81,6 +81,9 @@ class Chatbot extends Component {
 
     handleQuickRepliePayload(payload, text) {
         switch (payload) {
+            case  'recommended_yes':
+                this.eventQuery('SHOW_RECOMMENDATIONS');
+                break;
             case 'see_new' :
                 this.eventQuery('SEE_NEW');
                 break;
