@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios/index';
+import { withRouter } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { v4 as uuid } from 'uuid';
 import Message from './Message';
@@ -19,7 +20,8 @@ class Chatbot extends Component {
         this.handleInputKeyPress = this.handleInputKeyPress.bind(this);
         this.state= {
             messages: [],
-            showBot: true
+            showBot: true,
+            shopWelcomeSent: false
         };
         if(cookies.get('userId') === undefined) {
             cookies.set('userId', uuid(), {path:'/'});
@@ -61,6 +63,19 @@ class Chatbot extends Component {
 
     componentDidMount() {
         this.eventQuery('Welcome');
+
+        if (window.location.pathname === '/Shop' && !this.state.shopWelcomeSent) {
+            this.eventQuery('WELCOME_SHOP');
+            this.setState({shopWelcomeSent: true, showBot: true});
+        }
+
+        this.props.history.listen(() => {
+           // console.log("test");
+            if (this.props.history.location.pathname === '/Shop' && !this.state.shopWelcomeSent) {
+                this.eventQuery('WELCOME_SHOP');
+                this.setState({shopWelcomeSent: true, showBot: true});
+            }
+        })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -205,4 +220,4 @@ class Chatbot extends Component {
     }
 }
 
-export default Chatbot;
+export default withRouter(Chatbot);
