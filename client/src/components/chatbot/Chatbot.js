@@ -61,10 +61,19 @@ class Chatbot extends Component {
         }
     }
 
-    componentDidMount() {
+    resolveAfterXSecond(x) {
+        return new Promise(resolve => {
+            setTimeout(()=> {
+               resolve(x);
+            },1000);
+        });
+    }
+
+    async componentDidMount() {
         this.eventQuery('Welcome');
 
         if (window.location.pathname === '/Shop' && !this.state.shopWelcomeSent) {
+            await this.resolveAfterXSecond(1);
             this.eventQuery('WELCOME_SHOP');
             this.setState({shopWelcomeSent: true, showBot: true});
         }
