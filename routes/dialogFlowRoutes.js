@@ -18,8 +18,6 @@ module.exports = app => {
 
     app.post('/api/textEvent', async (req, res) => {
             let responses = await chatbot.textEvent(req.body.event, req.body.userId, req.body.parameters);
-            //  console.log(JSON.stringify(responses));
-      //  console.log(responses);
             res.send(responses[0].queryResult);
     });
 
