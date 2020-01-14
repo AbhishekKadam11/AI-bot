@@ -4,8 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const config = require('./config/keys');
 const mongoose = require('mongoose');
-mongoose.connect(config.mongoURI, {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>console.log("DB server connect"))
-    .catch(e => console.log("DB error", e));
+mongoose.connect(config.mongoURI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.use(bodyParser.json());
 
