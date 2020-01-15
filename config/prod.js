@@ -4,5 +4,5 @@ module.exports = {
     dialogFlowSessionLanguageCode: process.env.DIALOGFLOW_LANGUAGE_CODE,
     googleClientEmail: process.env.GOOGLE_CLIENT_EMAIL,
     googlePrivateKey: process.env.GOOGLE_PRIVATE_KEY,
-    MONGO_URL:  process.env.MONGO_URI
+    MONGO_URL: process.env.MONGO_URI
 };
