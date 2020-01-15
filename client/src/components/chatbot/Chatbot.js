@@ -39,7 +39,6 @@ class Chatbot extends Component {
         };
         this.setState({messages: [...this.state.messages, says]});
         const res = await axios.post('/api/textQuery', {text: text, userId: cookies.get('userId')});
-       // console.log(res);
         for(let msg of res.data.fulfillmentMessages) {
              says = {
                 speaks: 'AI-Bot',
