@@ -5,8 +5,7 @@ const QuickReply = (props) => {
         return (
             <a style={{margin:3}} className="btn-floating btn-large waves-effect waves-light red"
             onClick={()=>props.click(props.reply.structValue.fields.payload.stringValue,
-                props.reply.structValue.fields.text.stringValue)}
-            >
+                props.reply.structValue.fields.text.stringValue)}>
                 {props.reply.structValue.fields.text.stringValue}
             </a>
         );
