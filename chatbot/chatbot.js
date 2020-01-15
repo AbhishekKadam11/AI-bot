@@ -13,10 +13,8 @@ const sessionClient = new dialogflow.SessionsClient({projectID, credentials});
 module.exports = {
     textQuery: async function(text, userId, parameters = {}) {
         let sessionPath = sessionClient.sessionPath(config.googleProjectID, config.dialogFlowSessionID + userId);
-
         let self = module.exports;
         // The text query request.
-        // try{
             const request = {
                 session: sessionPath,
                 queryInput: {

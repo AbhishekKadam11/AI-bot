@@ -6,6 +6,6 @@ const Landing = () => {
             chatbot
         </div>
         )
-}
+};
 
 export default Landing;

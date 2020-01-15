@@ -124,7 +124,6 @@ class Chatbot extends Component {
     }
 
     renderOneMessage(message, i) {
-
         if(message.msg && message.msg.text && message.msg.text.text) {
             return <Message key={i} speaks={message.speaks} text={message.msg.text.text} />;
         } else if (message.msg && message.msg.payload && message.msg.payload.fields &&
@@ -221,7 +220,6 @@ class Chatbot extends Component {
                     <div ref={(el) => {this.messagesEnd = el;}}
                          style={{float: "left", clear: "both"}}>
                     </div>
-
                 </div>
             )
         }
