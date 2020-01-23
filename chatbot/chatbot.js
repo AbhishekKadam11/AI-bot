@@ -10,6 +10,8 @@ const credentials = {
 };
 const sessionClient = new dialogflow.SessionsClient({projectID, credentials});
 
+const Registration = mongoose.model('registration');
+
 module.exports = {
     textQuery: async function(text, userId, parameters = {}) {
         let sessionPath = sessionClient.sessionPath(config.googleProjectID, config.dialogFlowSessionID + userId);
@@ -59,14 +61,30 @@ module.exports = {
         return responses;
     },
     handleAction: function(responses) {
+        let self = module.exports;
         let queryResult = responses[0].queryResult;
         switch (queryResult.action) {
             case 'recommend-yes':
                 if(queryResult.allRequiredParamsPresent){
-
+                    self.saveRegistration(queryResult.parameter.fields);
                 }
                 break;
         }
         return responses;
+    },
+
+    saveRegistration: async function (fields) {
+        const registration = new Registration({
+            name: fields.name.stringValue,
+            address: fields.address.stringValue,
+            phone: fields.phone.stringValue,
+            email: fields.email.stringValue,
+            dateSent: Date.now()
+        });
+        try {
+            let req = await registration.save();
+        }catch (e) {
+            console.log(e);
+        }
     }
 };
